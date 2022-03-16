@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+require = require('esm')(module)
+package = require('../package.json')
+const { version } = package
+require('../src/cli').cli(process.argv, version)

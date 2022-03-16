@@ -1,0 +1,26 @@
+{
+  "name": "aws-mfa",
+  "version": "1.0.0",
+  "description": "cli para estudo",
+  "main": "src/index.js",
+  "bin": {
+    "aws-mfa": "bin/aws-mfa"
+  },
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "keywords": [
+    "aws cli"
+  ],
+  "author": "Natanael L. Freire",
+  "license": "ISC",
+  "dependencies": {
+    "arg": "^5.0.1",
+    "esm": "^3.2.25",
+    "inquirer": "^8.2.0",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
