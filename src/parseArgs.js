@@ -2,7 +2,7 @@ import arg from 'arg'
 
 export function parseArgumentsIntoOptions (rowArgs) {
   const args = arg({
-    '--mfa': Number,
+    '--mfa': String,
     '--setup': Boolean,
     '--profile': String
   }, {

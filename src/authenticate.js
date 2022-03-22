@@ -22,14 +22,13 @@ export class Authenticate {
 
   static getCredentialsInAws (serialNumber, codeMfa, duration, profile) {
     const result = shell.exec(`aws sts get-session-token --duration-seconds ${duration} --profile ${profile} --serial-number ${serialNumber} --token-code ${codeMfa} --output json`)
-    if (result.stderr || !result.stdout) return
+    if (result.stderr || !result.stdout) process.exit(1)
     const envs = JSON.parse(result.stdout.trim())
     return envs.Credentials
   }
 
   static exportEnvs (credentials, profile) {
     if (!credentials) {
-      console.log('SEM CREDENCIAIS: ', credentials)
       process.exit(1)
     }
     console.log(credentials)
@@ -38,7 +37,7 @@ export class Authenticate {
     aws_secret_access_key = ${credentials.SecretAccessKey}
     aws_session_token = ${credentials.SessionToken}}
     #expiry ${credentials.Expiration}`
-console.log('Authenticate.awsCredentialsFullPath: ', Authenticate.awsCredentialsFullPath)
+
     fs.writeFileSync(Authenticate.awsCredentialsFullPath, contentCredentials, { encoding: 'utf8' })
   }
 }
