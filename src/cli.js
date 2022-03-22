@@ -1,6 +1,6 @@
 import { Configuration } from './configuration'
 import { parseArgumentsIntoOptions } from './parseArgs'
-import { Shell } from './shell'
+import { Authenticate } from './authenticate'
 
 export async function cli (args, version) {
   try {
@@ -19,7 +19,7 @@ export async function cli (args, version) {
       return
     }
 
-    Shell.auth(config.serialNumber, options.mfa, config.duration, config.profile)
+    Authenticate.auth(config.serialNumber, options.mfa, config.duration, config.profile)
   } catch (error) {
     console.error('Error: ', error.message)
   }
