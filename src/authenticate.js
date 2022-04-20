@@ -31,7 +31,7 @@ export class Authenticate {
     if (!credentials) {
       process.exit(1)
     }
-    console.log(credentials)
+
     const contentCredentials = `[default]
     aws_access_key_id = ${credentials.AccessKeyId}
     aws_secret_access_key = ${credentials.SecretAccessKey}
