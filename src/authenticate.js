@@ -33,10 +33,10 @@ export class Authenticate {
     }
 
     const contentCredentials = `[default]
-    aws_access_key_id = ${credentials.AccessKeyId}
-    aws_secret_access_key = ${credentials.SecretAccessKey}
-    aws_session_token = ${credentials.SessionToken}}
-    #expiry ${credentials.Expiration}`
+aws_access_key_id = ${credentials.AccessKeyId}
+aws_secret_access_key = ${credentials.SecretAccessKey}
+aws_session_token = ${credentials.SessionToken}}
+#expiry ${credentials.Expiration}`
 
     fs.writeFileSync(Authenticate.awsCredentialsFullPath, contentCredentials, { encoding: 'utf8' })
   }
