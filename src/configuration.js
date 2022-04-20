@@ -9,11 +9,16 @@ export class Configuration {
   REGION_DEFAULT = 'us-east-1'
   ourPath
   ourConfigFile
+  awsCredentialsPath
+  awsCredentialsCopyPath
 
   constructor () {
     const ourFolder = '.aws-mfa'
     this.ourPath = path.join(homedir, ourFolder)
     this.ourConfigFile = path.join(this.ourPath, 'config.json')
+    const awsFolder = path.join(homedir, '.aws')
+    this.awsCredentialsPath = path.join(awsFolder, 'credentials')
+    this.awsCredentialsCopyPath = path.join(this.ourPath, 'aws_credentials')
   }
 
   async configure (options) {
@@ -27,6 +32,7 @@ export class Configuration {
     delete params.profile
     currentConfiguration[profile] = { ...params }
     this.storeConfiguration(currentConfiguration)
+    this.saveCopyOriginalAwsCredentials()
   }
 
   async storeConfiguration (configuration) {
@@ -36,6 +42,7 @@ export class Configuration {
 
   getConfiguration (profile) {
     try {
+      this.restoreAwsCredentials()
       const config = JSON.parse(fs.readFileSync(this.ourConfigFile, 'utf-8'))
       if (!profile) return config
       return config[profile]
@@ -73,5 +80,17 @@ export class Configuration {
 
     const params = await inquirer.prompt(questions, options);
     return params
+  }
+
+  saveCopyOriginalAwsCredentials () {
+    try {
+      fs.copyFileSync(this.awsCredentialsPath, this.awsCredentialsCopyPath)
+    } catch(error) {
+      process.exit(1)
+    }
+  }
+
+  restoreAwsCredentials () {
+    fs.copyFileSync(this.awsCredentialsCopyPath, this.awsCredentialsPath)
   }
 }
